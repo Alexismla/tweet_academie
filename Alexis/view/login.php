@@ -3,7 +3,7 @@ session_start();
 include '../conn_bdd.php';
 if (isset($_POST['submit'])) 
 {
-	$email = $_POST['email'];
+    $email = $_POST['email'];
 	$mdp = $_POST['password'];
 	if ($login->login())
 	{
@@ -37,7 +37,7 @@ if (isset($_POST['submit']))
 			<div class="container">
 				<h2>Connexion</h2>
 				<div class="form-group col-md-6">
-					<input type="email" name="email" placeholder="email" class="form-control">
+					<input type="text" name="email" placeholder="email ou pseudo" class="form-control">
 				</div>
 					<div class="form-group col-md-6">
 					<input type="password" name="password" placeholder="mot de passe" class="form-control">

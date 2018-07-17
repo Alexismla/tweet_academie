@@ -33,10 +33,10 @@ if (isset($_POST['submit']))
 					<input type="text" name="username" class="form-control" placeholder="pseudo">
 				</div>
 				<div class="form-group col-md-6">
-					<input type="text" name="firstname" class="form-control" placeholder="Nom">
+					<input type="text" name="firstname" class="form-control" placeholder="Prénom">
 				</div>
 				<div class="form-group col-md-6">
-					<input type="text" name="lastname" class="form-control" placeholder="Prénom">
+					<input type="text" name="lastname" class="form-control" placeholder="nom">
 				</div>
 				<div class="form-group col-md-6">
 					<input type="email" name="email" class="form-control" placeholder="Email">

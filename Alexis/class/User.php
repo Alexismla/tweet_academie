@@ -34,29 +34,30 @@ class User
 
     public function login()
     {
-    		$connect = $this->database->prepare('SELECT * FROM user WHERE email = :email AND password = :password');
+    		$connect = $this->database->prepare('SELECT * FROM user WHERE email = :email OR username = :username AND password = :password ');
             // var_dump($connect);
             $connect->bindValue(':email',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
+            $connect->bindValue(':username',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
             $connect->bindValue(':password', htmlentities(htmlspecialchars(strip_tags($_POST['password']))));
     		$connect->execute();
     		$row = $connect->fetch();
             // var_dump($email ,$row, $mdp);    
     		if ($row['password'])
             {
-                $this->session($row['id_user'],$row['username'],$row['lastname'],$row['firstname'],$row['avatar'],$row
-                    ['email'],$row['password'],$row['theme']);
+                $this->session($row['id_user'],$row['username'],$row['firstname'],$row['lastname'],$row['email'],$row
+                    ['password'],$row['avatar'],$row['theme']);
 				return true;
             }
     		else 
             {
-                echo '<script>alert("email ou/et mot de passe ne sont pas bon")</script>';
+                echo '<script>alert("email/pseudo ou/et mot de passe ne sont pas bon")</script>';
             }
         }
         
         public function session($id_user, $username, $firstname, $lastname, $email, $password, $avatar, $theme)
         {
         session_start();
-        $_SESSION['id'] = $id;
+        $_SESSION['id_user'] = $id_user;
         $_SESSION['username'] = $username;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['lastname'] = $lastname;
@@ -66,6 +67,4 @@ class User
         $_SESSION['theme'] = $theme;
         header('location:index.php');
         }
-
-
 }
