@@ -1,14 +1,18 @@
 <?php include '../conn_bdd.php';
 if (isset($_POST['submit']))  
 {
-    if($login->register())
+	if($login->CheckPost())
+	{
+   		if($login->register())
 	    { 
 			header('location:login.php');
 		}
-        else
-            {
-		        echo "<script>alert('Champs non remplis')</script>";
-	        }
+			else
+			{
+				echo "<script>alert('Champs non remplis')</script>";
+			}
+
+	}
 }
 ?>
 

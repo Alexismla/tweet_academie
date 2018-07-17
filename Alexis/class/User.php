@@ -4,7 +4,7 @@ class User
 {
     private $database;
     private $email;
-    private $mdp;
+    private $password;
 
     public function __construct($dbcon)
     {
@@ -66,5 +66,18 @@ class User
         $_SESSION['avatar'] = $avatar;
         $_SESSION['theme'] = $theme;
         header('location:index.php');
+        }
+
+        public function CheckPost()
+        {
+            if (empty($_POST)) 
+            {
+                return false;
+            }
+
+            else 
+            {
+                return true;
+            }
         }
 }
