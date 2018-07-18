@@ -1,19 +1,21 @@
 <?php include '../conn_bdd.php';
 if (isset($_POST['submit']))  
 {
-	if($login->CheckPost())
-	{
-   		if($login->register())
-	    { 
-			header('location:login.php');
-		}
-			else
+		$username = $_POST['username'];
+		$firstname = $_POST['firstname'];
+		$lastname = $_POST['lastname'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		if ($login->CheckPost($username, $firstname, $lastname, $email, $password))
+		{
+			if($login->CheckMail())
 			{
-				echo "<script>alert('Champs non remplis')</script>";
+   				if($login->register())
+	    		{ 
+					header('location:login.php');
+				}
 			}
-
-	}
-}
+		}
 ?>
 
 <!DOCTYPE html>

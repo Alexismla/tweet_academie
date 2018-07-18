@@ -3,25 +3,28 @@ session_start();
 include '../conn_bdd.php';
 if (isset($_POST['submit'])) 
 {
-    $email = $_POST['email'];
-	$mdp = $_POST['password'];
-	if ($login->login())
+	if ($login->CheckStatus() === false)
 	{
-		session_start();
-		session();
-		$_SESSION['id_user'] = $row['id_user'];
-		$_SESSION['username'] = $row['username'];
-		$_SESSION['firstname'] = $row['firstname'];
-		$_SESSION['lastname'] = $row['lastname'];
-		$_SESSION['email'] = $row['email'];
-		$_SESSION['passsword'] = $row['password'];
-		header('location:index.php');
+		header('Location: login.php');
+		return false;
 	}
 	
+		if ($login->login())
+		{
+			session_start();
+			session();
+			$_SESSION['id_user'] = $row['id_user'];
+			$_SESSION['username'] = $row['username'];
+			$_SESSION['firstname'] = $row['firstname'];
+			$_SESSION['lastname'] = $row['lastname'];
+			$_SESSION['email'] = $row['email'];
+			$_SESSION['password'] = $row['password'];
+			header('location:index.php');
+		}
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	<meta charset="utf-8">
@@ -37,7 +40,7 @@ if (isset($_POST['submit']))
 			<div class="container">
 				<h2>Connexion</h2>
 				<div class="form-group col-md-6">
-					<input type="text" name="email" placeholder="email ou pseudo" class="form-control">
+					<input type="email" name="email" placeholder="email ou pseudo" class="form-control">
 				</div>
 					<div class="form-group col-md-6">
 					<input type="password" name="password" placeholder="mot de passe" class="form-control">

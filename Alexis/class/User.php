@@ -34,24 +34,23 @@ class User
 
     public function login()
     {
-    		$connect = $this->database->prepare('SELECT * FROM user WHERE email = :email OR username = :username AND password = :password ');
-            // var_dump($connect);
+    		$connect = $this->database->prepare('SELECT * FROM user WHERE email = :email AND password = :password ');
             $connect->bindValue(':email',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
-            $connect->bindValue(':username',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
+            // $connect->bindValue(':username',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
             $connect->bindValue(':password', htmlentities(htmlspecialchars(strip_tags($_POST['password']))));
     		$connect->execute();
-    		$row = $connect->fetch();
-            // var_dump($email ,$row, $mdp);    
-    		if ($row['password'])
+            $row = $connect->fetch();    
+            // var_dump($row);
+    		if ($row)
             {
                 $this->session($row['id_user'],$row['username'],$row['firstname'],$row['lastname'],$row['email'],$row
                     ['password'],$row['avatar'],$row['theme']);
 				return true;
             }
-    		else 
-            {
-                echo '<script>alert("email/pseudo ou/et mot de passe ne sont pas bon")</script>';
-            }
+    		    else 
+                {
+                    echo '<script>alert("email/pseudo ou/et mot de passe ne sont pas bon")</script>';
+                }
         }
         
         public function session($id_user, $username, $firstname, $lastname, $email, $password, $avatar, $theme)
@@ -67,11 +66,16 @@ class User
         $_SESSION['theme'] = $theme;
         header('location:index.php');
         }
-
-        public function CheckPost()
+        
+        public function CheckPost($username, $firstname ,$lastname, $email, $password)
         {
-            if (empty($_POST)) 
+            if (empty($_POST['username']) 
+                OR empty($_POST['firstname']) 
+                OR empty($_POST['lastname'])  
+                OR empty($_POST['email'])
+                OR empty($_POST['password'])) 
             {
+                echo "<script>alert('Champs non remplis')</script>";
                 return false;
             }
 
@@ -79,5 +83,39 @@ class User
             {
                 return true;
             }
+        }
+
+        public function CheckMail()
+        {
+            $connect = $this->database->prepare('SELECT email FROM user WHERE email = :email');
+            $connect->bindValue(':email',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
+            $connect->execute();
+            $row = $connect->fetch();
+            if ($row) 
+                {
+                    echo "<script>alert('Ce mail existe déjà')</script>"; 
+                    return false;
+                }
+                else
+                    {
+                        return true;
+                    }
+        }
+
+        public function CheckStatus()
+        {
+            $connect = $this->database->prepare('SELECT status FROM user WHERE email = :email');
+            $connect->bindValue(':email',  htmlentities(htmlspecialchars(strip_tags($_POST['email']))));
+            $connect->execute();
+            $row = $connect->fetch();
+            var_dump($row);
+            if ($row[0] == 0)
+            {
+                return false;   
+            }
+                else
+                {
+                    return true;
+                }
         }
 }
