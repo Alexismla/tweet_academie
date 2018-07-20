@@ -140,10 +140,22 @@ class User
         }
         public function follower()
         {
-            $follow = $this->database->prepare("SELECT *, follow.id_followed AS 'followed', follow.id_follower AS 'follower' FROM user
-            LEFT JOIN followed ON follow.id_followed = user.id_user
-            LEFT JOIN follower ON follow.id_follower = user.id_user");
+            $follow = $this->database->prepare("SELECT COUNT(id_follower) FROM follow
+            JOIN  user ON user.id_user = follow.id_follower WHERE id_follower = :id_follower");
+            $follow->bindValue(':id_follower',$_SESSION['id_user']);
             $follow->execute();
-
+            $row2 = $follow->fetch();
+            //var_dump($row2);
+            echo $row2[0];
+        }
+        public function followed()
+        {
+            $follow = $this->database->prepare("SELECT COUNT(id_follower) FROM follow
+            JOIN  user ON user.id_user = follow.id_follower WHERE id_followed = :id_followed");
+            $follow->bindValue(':id_followed',$_SESSION['id_user']);
+            $follow->execute();
+            $row3 = $follow->fetch();
+            //var_dump($row2);
+            echo $row3[0];
         }
 }
