@@ -158,4 +158,14 @@ class User
             //var_dump($row2);
             echo $row3[0];
         }
-}
+
+        public function ListFollower()
+        {
+            $follow = $this->database->prepare('SELECT username from follow,user WHERE id_user = id_follower and id_followed = :id_followed');
+            $follow->bindValue(':id_followed',$_SESSION['id_user']);
+            $follow->execute();
+            $row3 = $follow->fetch();
+            echo $row3[0];
+
+        }
+    }

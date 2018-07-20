@@ -23,5 +23,8 @@ include '../conn_bdd.php';
 <h3>Nombre d'abonné : <?php $login->followed();
 ?>
 </h3>
+
+<?php $login->ListFollower(); ?>
+
 </body>
 </html>
