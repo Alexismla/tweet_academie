@@ -13,6 +13,8 @@ include '../conn_bdd.php';
     <title>Mon profil</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
     <script src="main.js"></script>
 </head>
 <body>
@@ -20,11 +22,25 @@ include '../conn_bdd.php';
 <h3>Nombre de follower : <?php $login->follower();
 ?>
  </h3>
-<h3>Nombre d'abonné : <?php $login->followed();
+<h3>Nombre d'abonnement : <?php $login->followed();
 ?>
 </h3>
+<a class="btn btn-primary btn-lg" href="index.php" role="lien">Retour</a>
 
-<?php $login->ListFollower(); ?>
+				<table class="table table-dark">
+					<th scope="col">Abonnement</th>
+					<tr>
+					<td><?php $login->ListFollowed(); ?></td>				
+                    </tr>
+				</table>
+
+                <table class="table table-dark">
+					<th scope="col">Follower</th>
+					<tr>
+					<td><?php $login->ListFollower(); ?></td>				
+                    </tr>
+				</table>
+
 
 </body>
 </html>

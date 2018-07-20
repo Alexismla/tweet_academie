@@ -45,7 +45,7 @@ if (isset($_POST['submit']))
 </nav>
 	<!------    body    ------>
 	<div class="container">
-	<div class="jumbotron">
+	<div class="jumbotron mt-3">
   <div class="center2"> 
 
 	

@@ -159,13 +159,31 @@ class User
             echo $row3[0];
         }
 
-        public function ListFollower()
+        public function ListFollowed()
         {
             $follow = $this->database->prepare('SELECT username from follow,user WHERE id_user = id_follower and id_followed = :id_followed');
             $follow->bindValue(':id_followed',$_SESSION['id_user']);
             $follow->execute();
-            $row3 = $follow->fetch();
-            echo $row3[0];
+            
+            foreach($follow as $r)
+            {
+                echo $r['username'] . "<br>";
+            }
+				
+
+        }
+
+        public function ListFollower()
+        {
+            $follow = $this->database->prepare('SELECT username from follow,user WHERE id_user = id_followed and id_follower = :id_follower');
+            $follow->bindValue(':id_follower',$_SESSION['id_user']);
+            $follow->execute();
+            
+            foreach($follow as $r)
+            {
+                echo $r['username'];
+            }
+				
 
         }
     }
