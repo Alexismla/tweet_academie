@@ -70,7 +70,7 @@ if (isset($_POST['submit']))
 				</div>
 				<div class="form-group col-md-8">
 						<input type="submit" name="submit" value="Valider" class="btn btn-dark btn-lg">
-						<a class="btn btn-primary btn-lg" href="register.php" role="lien">Déjà inscrit ?</a>
+						<a class="btn btn-primary btn-lg" href="login.php" role="lien">Déjà inscrit ?</a>
 
 			</div>
 			
