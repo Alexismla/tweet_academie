@@ -117,7 +117,7 @@ $user_sender = $user_sender['username'];
 		<br />	<br />
 
 </form>
-<script> setInterval('load_message()', 2500);
+<script> setInterval('load_message()', 500);
 		function load_message() {
 			$('#message').load("load_message.php")
 		}

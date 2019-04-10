@@ -1,8 +1,8 @@
 <?php 
 	$dbhost = 'localhost';
-	$dbname = 'common-database';
+	$dbname = 'chat';
 	$dbuser = 'root';
-	$dbpass = 'root';
+	$dbpass = '';
 
 	try{
 
@@ -12,5 +12,5 @@
 	catch(PDOException $ex){
 		die($ex->getMessage());
 	}
-	include '../class/User.php';
+	include 'user.php';
 	$login = new User($dbcon);
